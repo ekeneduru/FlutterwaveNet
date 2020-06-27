@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Ekene_Duru</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>FlutterwaveNet allow  you to use Flutterwave api for standard payment in Nigeria</Description>
+    <PackageTags>Flutterwave</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
