@@ -11,13 +11,14 @@ namespace FlutterwaveNet
         public string currency { get; set; }
         public string redirect_url { get; set; }
         public string payment_options { get; set; }
-        public Customer customer { get; set; }
+        public MetaR meta { get; set; }
+        public CustomerR customer { get; set; }
         public Customizations customizations { get; set; }
 
     }
    
 
-    public class Customer
+    public class CustomerR
     {
         public string email { get; set; }
         public string phonenumber { get; set; }
@@ -33,5 +34,13 @@ namespace FlutterwaveNet
 
     }
 
-   
+    public class MetaR
+    {
+        public int consumer_id { get; set; }
+        public string consumer_mac { get; set; }
+        public string ExtraField { get; set; }
+        public string ExtraFieldTwo { get; set; }
+
+    }
+
 }

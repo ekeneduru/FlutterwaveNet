@@ -15,6 +15,7 @@ namespace FlutterwaveNet.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        string SecretKey = "Key here";
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -23,22 +24,29 @@ namespace FlutterwaveNet.Web.Controllers
         public IActionResult Index()
         {  
             Guid refId= Guid.NewGuid();
-            FlutterWaveApi api = new FlutterWaveApi("Add Secret Key");
+            FlutterWaveApi api = new FlutterWaveApi(SecretKey);
             TransactRequest request = new TransactRequest();
             request.currency = "NGN";
-            request.amount = 5000;
+            request.amount = 15000;
             request.tx_ref = refId.ToString();
             request.redirect_url = "http://localhost:56933/home/Privacy";
             request.payment_options = "card";
 
-            request.customer = new Customer()
+            request.customer = new CustomerR()
             {
                 email = "test@yahoo.com",
                 name = "Ekene Duru",
                 phonenumber = "08012345678"
             };
+            request.meta = new MetaR() { 
+              consumer_id=23333,
+               consumer_mac="45666666655",
+                ExtraField= "gooooo",
+                 ExtraFieldTwo="455544444444444444"
+            };
             request.customizations = new Customizations { title = "Test Payment", logo = "", description = "Middleout isn't free. Pay the price" };
             TransactionReponse resp= api.Initialize(request);
+              
             if (resp.status == "success")
             {
                 HttpContext.Response.Redirect(resp.data.link);
@@ -53,6 +61,8 @@ namespace FlutterwaveNet.Web.Controllers
             var strRequest = Request.QueryString.ToString();
             var dict = HttpUtility.ParseQueryString(strRequest);
             var json = JsonConvert.SerializeObject(dict.AllKeys.ToDictionary(k => k, k => dict[k]));
+            FlutterWaveApi api = new FlutterWaveApi(SecretKey);
+            TransactionReponse resp= api.Verify(transaction_id);
             return View();
         }
 

@@ -47,9 +47,45 @@ namespace FlutterwaveNet
             }
         }
 
+        private async Task<TransactionReponse> VerifyPayment(string transactiondId)
+        {
+
+            string endpoint = $"/v3/transactions/{transactiondId}/verify";
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://api.flutterwave.com");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                if (!string.IsNullOrWhiteSpace(_serviceKey))
+                    // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _serviceKey);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _serviceKey);
+
+                //var payload = JsonConvert.SerializeObject(request);
+                //var httpContent = new StringContent(payload, Encoding.UTF8, "application/json");
+
+                var response = await client.GetAsync(endpoint);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<TransactionReponse>(content);
+                }
+                else
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<TransactionReponse>(content);
+                }
+            }
+        }
+
+
+
         public TransactionReponse Initialize(TransactRequest request)
         {
            return Task.Run(() => MakePayment(request)).Result;    
+        }
+        public TransactionReponse Verify(string transactionId)
+        {
+            return Task.Run(() => VerifyPayment(transactionId)).Result;
         }
     }
 }

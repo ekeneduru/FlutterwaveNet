@@ -7,6 +7,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>FlutterwaveNet allow  you to use Flutterwave api for standard payment in Nigeria</Description>
     <PackageTags>Flutterwave</PackageTags>
+    <PackageProjectUrl>https://github.com/ekeneduru/FlutterwaveNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ekeneduru/FlutterwaveNet</RepositoryUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
